@@ -5,7 +5,7 @@ from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 import uvicorn
 
-from src.routes import auth
+from src.routes import auth, contacts
 
 
 app_dir = Path(__file__).parent
@@ -15,6 +15,7 @@ app = FastAPI()
 templates = Jinja2Templates(directory=app_dir / "templates")
 
 app.include_router(auth.router)
+app.include_router(contacts.router)
 
 @app.get('/')
 def hello(request: Request):

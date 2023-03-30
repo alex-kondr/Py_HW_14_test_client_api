@@ -3,9 +3,11 @@ import requests
 
 from fastapi import APIRouter, Request, Form
 from fastapi.templating import Jinja2Templates
+# from fastapi.responses import RedirectResponse
+from starlette.responses import RedirectResponse
+from starlette import status
 
 from src.services.storage import local_storage
-from src.routes.contacts import get_contacts
 
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -18,7 +20,7 @@ def form(request: Request):
     return templates.TemplateResponse("login.html", {"request": request, "placeholder": "example@example.com"})
 
 @router.post("/login")
-def postdata(username = Form(), password = Form()):
+def postdata(request: Request, username = Form(), password = Form()):
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     data = {
         "username": username,
@@ -30,4 +32,8 @@ def postdata(username = Form(), password = Form()):
     local_storage.setItem("access_token", response.json().get("access_token"))
     local_storage.setItem("refresh_token", response.json().get("refresh_token"))
     
-    return response.json()
+    # contacts = requests.get("http://localhost:8000/contacts")
+    
+    print(response.json())
+    
+    return RedirectResponse(url="/contacts", status_code=status.HTTP_303_SEE_OTHER)

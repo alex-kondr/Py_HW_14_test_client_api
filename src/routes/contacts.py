@@ -14,9 +14,11 @@ templates = Jinja2Templates(directory=app_dir / "templates")
 
 
 @router.get("/")
-def get_contacts():
+def get_contacts(request: Request):
     access_token = local_storage.getItem("access_token")    
     refresh_token = local_storage.getItem("refresh_token")
     headers = {"Authorization": f"Bearer {access_token}"}
     response = requests.get("https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/", headers=headers)
-    return response.json()
+    
+    # print(response.json())
+    return templates.TemplateResponse("contacts.html", {"request": request, "contacts": response.json()})

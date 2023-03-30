@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <link rel="icon" href="data:;base64,=" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -17,9 +17,52 @@
     <title>Contacts</title>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Singup</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br><br>
     <div class="row">
-    <div class="col-sm-4 mb-3 mb-sm-10" >
+{% for contact in contacts %}
+  <div class="col-sm-4 mb-3 mb-sm-0">
+    <div class="card">
+      <img src="{{contact.avatar}}" class="card-img-top" alt="">
+      <div class="card-body">
+        <h3 class="card-title">{{contact.first_name}} {{contact.last_name}}</h5>
+        <p class="card-text"><b>Phone:</b> {{contact.phone}} </p>
+        <p class="card-text"><b>Email:</b> {{contact.email}} </p>
+        <a href="#" class="btn btn-primary">Edit</a>
+        <a href="#" class="btn btn-primary">Delete</a>
+      </div>
     </div>
   </div>
+  {% endfor %}
+</div>
+
   </body>
 </html>
