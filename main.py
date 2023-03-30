@@ -14,7 +14,8 @@ templates = Jinja2Templates(directory=app_dir / "templates")
 
 @app.get('/')
 def hello(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "name": "abagalamaga"})
+    contacts = get_contacts()
+    return templates.TemplateResponse("index.html", {"request": request, "image": contacts[6].get("avatar")})
 
 # @app.get("/")
 # def kuku():
@@ -37,6 +38,6 @@ def get_contacts():
     return response.json()
 
 if __name__ == "__main__":
-    # uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
     # print(response.json())
-    print(get_contacts())
+    # print(get_contacts())
