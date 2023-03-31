@@ -2,7 +2,7 @@ from pathlib import Path
 import requests
 import json
 
-from fastapi import APIRouter, Request, Form
+from fastapi import APIRouter, Request, Form, Response
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 # from starlette.responses import RedirectResponse
@@ -41,7 +41,18 @@ def postdata(request: Request, username = Form(), password = Form()):
         "refresh_token": refresh_token
         })
     
+    # headers = {"Authorization": f"Bearer {access_token}"}
+    # response = requests.get("https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/", headers=headers)
+    
     # print(options)
     # print("====================")
+    # payload = {
+    #     "request": request,
+    #     # "access_token": access_token,
+    #     # "refresh_token": refresh_token,
+    #     "contacts": response.json()
+        # }
     
+    # return requests.get("http://localhost:8000/contacts")
+    # return Response(content=response.content)
     return RedirectResponse(url=f"/contacts?options={options}", status_code=status.HTTP_303_SEE_OTHER)

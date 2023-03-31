@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="data:;base64,=" />
-    {% if access_token %}
-    <meta id="storage_access_token" title="{{access_token}}"/>
-    {% endif %}
+    <meta id="storage_access_token" title={% if access_token %} {{access_token}} {% endif %}/>
     {% if refresh_token %}
     <meta id="storage_refresh_token" title="{{refresh_token}}"/>
     {% endif %}
