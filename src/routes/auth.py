@@ -3,7 +3,6 @@ import requests
 
 from fastapi import APIRouter, Request, Form
 from fastapi.templating import Jinja2Templates
-# from fastapi.responses import RedirectResponse
 from starlette.responses import RedirectResponse
 from starlette import status
 
@@ -34,6 +33,6 @@ def postdata(request: Request, username = Form(), password = Form()):
     
     # contacts = requests.get("http://localhost:8000/contacts")
     
-    print(response.json())
+    # print(response.json())
     
     return RedirectResponse(url="/contacts", status_code=status.HTTP_303_SEE_OTHER)

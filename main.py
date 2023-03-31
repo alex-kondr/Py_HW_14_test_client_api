@@ -17,10 +17,10 @@ templates = Jinja2Templates(directory=app_dir / "templates")
 app.include_router(auth.router)
 app.include_router(contacts.router)
 
-@app.get('/')
-def hello(request: Request):
-    contacts = get_contacts()
-    return templates.TemplateResponse("index.html", {"request": request, "image": contacts[6].get("avatar")})
+# @app.get('/')
+# def hello(request: Request):
+#     contacts = get_contacts()
+#     return templates.TemplateResponse("index.html", {"request": request, "image": contacts[6].get("avatar")})
 
 
     
