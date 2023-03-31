@@ -3,6 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="data:;base64,=" />
+    {% if access_token %}
+    <meta id="storage_access_token" title="{{access_token}}"/>
+    {% endif %}
+    {% if refresh_token %}
+    <meta id="storage_refresh_token" title="{{refresh_token}}"/>
+    {% endif %}
+  
+    <meta id="temp_access_token"/>
+    <meta id="temp_refresh_token" title=""/>
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -48,7 +58,8 @@
     </nav>
     <br><br>
     <div class="row">
-{% for contact in contacts %}
+  {% for contact in contacts %}
+  {% if contact.avatar %}
   <div class="col-sm-4 mb-3 mb-sm-0">
     <div class="card">
       <img src="{{contact.avatar}}" class="card-img-top" alt="">
@@ -61,8 +72,9 @@
       </div>
     </div>
   </div>
+  {% endif %}
   {% endfor %}
 </div>
-
+  <script src="{{url_for('static', path='/storage.js')}}"></script>
   </body>
 </html>

@@ -3,6 +3,7 @@ import requests
 
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 
 from src.routes import auth, contacts
@@ -11,16 +12,17 @@ from src.routes import auth, contacts
 app_dir = Path(__file__).parent
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory=app_dir / "templates")
 
 app.include_router(auth.router)
 app.include_router(contacts.router)
 
-# @app.get('/')
-# def hello(request: Request):
-#     contacts = get_contacts()
-#     return templates.TemplateResponse("index.html", {"request": request, "image": contacts[6].get("avatar")})
+@app.get('/')
+def hello(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
 
 
     
