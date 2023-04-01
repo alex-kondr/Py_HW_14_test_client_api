@@ -45,20 +45,24 @@ def get_access(request: Request):
     # return get_contacts_by_access_token(request, data.access_token)
 
 
-@router.options("/test")
+@router.post("/")
 def test(body: Token):
     print(body)
     
 
 @router.get("/")
 def get_contacts(request: Request, options: str = None):
-    # print("contacts")
+    print("contacts")
+    print(f"{options=}")
     access_token = None
     refresh_token = None
     
     if options:
-        access_token = json.loads(options).get("access_token")
-        refresh_token = json.loads(options).get("refresh_token")
+        tokens = json.loads(options)
+    
+        if isinstance(tokens, dict):
+            access_token = tokens.get("access_token")
+            refresh_token = tokens.get("refresh_token")
     
     
     # print(access_token)
@@ -79,11 +83,14 @@ def get_contacts(request: Request, options: str = None):
             "request": request,
             "access_token": access_token,
             "refresh_token": refresh_token,
-            "contacts": response.json()
+            "contacts": response.json(),
+            "stat_code": response.status_code
         }
-    else:
+    elif response.status_code == 401:
         payload = {
-            "request": request
+            "request": request,
+            "message": response.json().get("detail"),
+            "stat_code": response.status_code
             }
     # print(response.json())
     return templates.TemplateResponse("contacts.html", payload)

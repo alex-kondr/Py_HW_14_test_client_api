@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="data:;base64,=" />
-    <meta id="storage_access_token" title={% if access_token %} {{access_token}} {% endif %}/>
+    <meta id="storage_access_token" title='{% if access_token %} {{access_token}} {% endif %}'/>
     {% if refresh_token %}
     <meta id="storage_refresh_token" title="{{refresh_token}}"/>
     {% endif %}
-  
+    <meta id="stat_code" title="{{stat_code}}" />
     <meta id="temp_access_token"/>
     <meta id="temp_refresh_token" title=""/>
 
@@ -56,6 +56,9 @@
     </nav>
     <br><br>
     <div class="row">
+      <h1 id="message">{{message}}</h1>
+      {% if message %}
+      {% endif %}
   {% for contact in contacts %}
   {% if contact.avatar %}
   <div class="col-sm-4 mb-3 mb-sm-0">

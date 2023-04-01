@@ -1,9 +1,9 @@
-from typing import Optional
+from typing import Optional, Union
 
 from pydantic import BaseModel
 
 
 class Token(BaseModel):
-    access_token: Optional[str]
+    access_token: Union[str, int, None]
     # refresh_token: Optional[str]
     
