@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 from pathlib import Path
 import requests
@@ -9,7 +10,7 @@ from fastapi.staticfiles import StaticFiles
 
 
 # from src.services.storage import local_storage
-from src.chemas.contacts import Token
+from src.schemas.contacts import Token, Contact
 
 
 router = APIRouter(prefix="/contacts", tags=["contacts"])
@@ -46,14 +47,17 @@ def get_access(request: Request):
 
 
 @router.post("/")
-def test(body: Token):
-    print(body)
+def test(request: Request, body: List[Contact]):
+    # print("request", request)
+    # print("body", body)
+    return(templates.TemplateResponse("test.html", {"request": request}))
     
 
 @router.get("/")
-def get_contacts(request: Request, options: str = None):
-    print("contacts")
-    print(f"{options=}")
+def get_contacts(request: Request, options: str = None, reload: bool = False):
+    # print("contacts")
+    # print(f"{options=}")
+    # print(f"{reload=}")
     access_token = None
     refresh_token = None
     
@@ -76,6 +80,10 @@ def get_contacts(request: Request, options: str = None):
     headers = {"Authorization": f"Bearer {access_token}"}
     response = requests.get("https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/", headers=headers)
     # print(response.text)
+    if reload:
+        status_code = 403
+    else:
+        status_code = response.status_code
     
     # print(request.__dict__)
     if response.status_code == 200:
@@ -90,7 +98,7 @@ def get_contacts(request: Request, options: str = None):
         payload = {
             "request": request,
             "message": response.json().get("detail"),
-            "stat_code": response.status_code
+            "stat_code": status_code
             }
     # print(response.json())
     return templates.TemplateResponse("contacts.html", payload)

@@ -18,7 +18,7 @@ localstoragepy = "^0.2.3"
 selenium = "^4.8.3"
 brython = "3.10"
 naked = "^0.1.32"
-pydantic = "^1.10.7"
+pydantic = {extras = ["email"], version = "^1.10.7"}
 
 
 [build-system]
