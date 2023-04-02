@@ -1,33 +1,23 @@
-// const element = contactsRow
-// const phone1 = phone
+const card = (contacts) => {
 
-// phone1.innerHTML = "<b>Phone: </b>quwerty"
-// phone.id = 789
-// console.log(element.phone)
+    const firstElement = document.getElementById("contactsCol")
 
-// for (i in [0, 1]) {
-    // phone.id = `phone1`
-    const element1 = document.getElementById("contactsCol")
-    // element1.id = `contactsCol${i}`
-const clone = element1.cloneNode(true)
-// clone.childNodes[1].childNodes[3].childNodes[3].childNodes[1].textContent = "phone789"
-clone.querySelector('#phone').innerHTML = "<b>Phone: </b>phonekuku"  
-// console.log(phone1.innerHTML)
-// const phone11 = clone.getElementById("phone")
-    
-    // phone11.id = "phone12"
-    document.getElementById("contactsRow").appendChild(clone)
-    // console.log(element1)
-    // const element = contactsCol
-    // contactsRow.appendChild(element1)
+    for (contact of contacts) {
+        console.log(contact)
+        const clone = firstElement.cloneNode(true)
+        clone.hidden = false
+        
+        clone.querySelector('#name').innerHTML = `${contact.first_name ? (contact.first_name+" "):""}${contact.last_name ? contact.last_name:""}`
+        clone.querySelector('#avatar').src = contact.avatar
+        clone.querySelector('#phone').innerHTML = `<b>Phone: </b>${contact.phone}`
+        clone.querySelector('#email').innerHTML = `<b>Email: </b>${(contact.email ? contact.email : "")}` 
+
+        document.getElementById("contactsRow").appendChild(clone)
+    }
+}
 
 
-// }
-
-
-
-
-const get_contacts = async (access_token, refresh_token) => {
+const getContacts = async (access_token, refresh_token) => {
 
     console.log("try get contacts")
 
@@ -46,28 +36,42 @@ const get_contacts = async (access_token, refresh_token) => {
         
         contacts = await response.json()
 
-        // console.log(contacts)
-
-        // for (contact in contacts) {
-        
-        //     console.log(contact)
-        // }
-        // console.log("json: ", JSON.stringify(contacts))
-
-        const response_temp = await fetch(
-            "http://localhost:8000/contacts",
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(contacts)
-            })
-        
-        // ab = await response_temp.blob()
-        // console.log("response_temp", ab)
-        // const objectURL = URL.createObjectURL(ab)
-        // console.log("url", objectURL)
-        // window.location= objectURL
+        card(contacts)
+    }
+    else if (response.status === 401) {
+        getNewTokens(refresh_token)
     }
 }
+
+const getNewTokens = async (refresh_token) => {
+    const response = await fetch(
+        'https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/auth/refresh_token',
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${refresh_token}`
+                }
+            }
+        )
+    if (response.status === 200) {
+        console.log("Get new tokens succesfull")
+
+        result = await response.json()
+
+        access_token = result.access_token
+        refresh_token = result.refresh_token
+
+        localStorage.setItem('access_token', access_token)
+        localStorage.setItem('refresh_token', refresh_token)
+        
+        getContacts(access_token, refresh_token)
+    }
+    else {
+        window.location = "../auth/login"
+    }
+}
+
+getContacts(
+    localStorage.getItem("access_token"),
+    localStorage.getItem("refresh_token"),
+)

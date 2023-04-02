@@ -17,24 +17,24 @@ form.addEventListener('submit', async event => {
       })
     }
   )
-//   console.log(response)
-  console.log("response status", response.status, response.statusText)
+  result = await response.json()
+  console.log("response status", response.status, result)
 
-    if (response.status === 200) {
-        console.log("login succesfull")
+  if (response.status === 200) {
+      console.log("login succesfull")
 
-        result = await response.json()
+      // result = await response.json()
 
-        // access_token = 
-        // refresh_token = 
-
-        localStorage.setItem('accessToken', result.access_token)
-        localStorage.setItem('refreshToken', result.refresh_token)
-
-        // get_contacts(access_token, refresh_token)
-        // blabla()
-    window.location = 'http://localhost:8000/contacts'
+      localStorage.setItem('access_token', result.access_token)
+    localStorage.setItem('refresh_token', result.refresh_token)
+    
+  window.location = '../contacts'
   }
+  else if (response.status === 401) {
+    message.innerHTML = result.detail
+    message.hidden = false
+  }
+
 })
 
 
