@@ -11,7 +11,8 @@
     // element1.id = `contactsCol${i}`
 const clone = element1.cloneNode(true)
 // clone.childNodes[1].childNodes[3].childNodes[3].childNodes[1].textContent = "phone789"
-    console.log(clone.querySelector('#'+'phone'))
+clone.querySelector('#phone').innerHTML = "<b>Phone: </b>phonekuku"  
+// console.log(phone1.innerHTML)
 // const phone11 = clone.getElementById("phone")
     
     // phone11.id = "phone12"
