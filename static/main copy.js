@@ -75,9 +75,11 @@ const get_contacts = async (access_token, refresh_token) => {
                 body: JSON.stringify(contacts)
             })
         
-        
-        console.log("response_temp", response_temp.json())
-        // window.location = response_temp.body
+        ab = await response_temp.blob()
+        console.log("response_temp", ab)
+        const objectURL = URL.createObjectURL(ab)
+        console.log("url", objectURL)
+        window.location= objectURL
     }
 }
 

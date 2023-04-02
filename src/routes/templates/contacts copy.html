@@ -54,19 +54,26 @@
       </div>
     </nav>
     <br><br>
-    <div class="row" id="contactsRow">
-  <div class="col-sm-4 mb-3 mb-sm-0" id="contactsCol">
+    <div class="row">
+      <h1 id="message">{{message}}</h1>
+      {% if message %}
+      {% endif %}
+  {% for contact in contacts %}
+  {% if contact.avatar %}
+  <div class="col-sm-4 mb-3 mb-sm-0">
     <div class="card">
-      <img src="" class="card-img-top" alt="">
+      <img src="{{contact.avatar}}" class="card-img-top" alt="">
       <div class="card-body">
-        <h3 class="card-title"></h5>
-        <p class="card-text" id="phone"><b>Phone:</b>phone123</p>
-        <p class="card-text"><b>Email:</b id="email">email456</p>
+        <h3 class="card-title">{{contact.first_name}} {{contact.last_name}}</h5>
+        <p class="card-text"><b>Phone:</b> {{contact.phone}} </p>
+        <p class="card-text"><b>Email:</b> {{contact.email}} </p>
         <a href="#" class="btn btn-primary">Edit</a>
         <a href="#" class="btn btn-primary">Delete</a>
       </div>
     </div>
   </div>
+  {% endif %}
+  {% endfor %}
 </div>
   <script src="{{url_for('static', path='/contacts.js')}}"></script>
   </body>
