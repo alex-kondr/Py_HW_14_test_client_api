@@ -19,49 +19,53 @@ app_dir = Path(__file__).parent
 templates = Jinja2Templates(directory=app_dir / "templates")
 
 
-def get_contacts_by_access_token(request, access_token):
-    # access_token = body.access_token
+# def get_contacts_by_access_token(request, access_token):
+#     # access_token = body.access_token
     
-    headers = {"Authorization": f"Bearer {access_token}"}
-    response = requests.get("https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/", headers=headers)
+#     headers = {"Authorization": f"Bearer {access_token}"}
+#     response = requests.get("https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/", headers=headers)
    
-    payload = {
-        "request": request,
-        "access_token": access_token,
-        # "refresh_token": refresh_token,
-        "contacts": response.json()
-    }
+#     payload = {
+#         "request": request,
+#         "access_token": access_token,
+#         # "refresh_token": refresh_token,
+#         "contacts": response.json()
+#     }
 
-    return templates.TemplateResponse("contacts.html", payload)
+#     return templates.TemplateResponse("contacts.html", payload)
 
 
-def get_refresh_token():
-    pass
+# def get_refresh_token():
+#     pass
 
 # router.mount("/static", StaticFiles(directory="static"), name="static")
-@router.post("/redirect")
-def get_access(request: Request):
-    print(request.__dict__)
+# @router.post("/redirect")
+# def get_access(request: Request):
+#     print(request.__dict__)
     # print(data)
     # return get_contacts_by_access_token(request, data.access_token)
 
 
-@router.post("/")
-def test(request: Request, body: List[Contact]):
-    # print("request", request)
-    # print("body", body)
-    payload = {
-        "request": request,
-        # "access_token": access_token,
-        # "refresh_token": refresh_token,
-        "contacts": body,
-        # "stat_code": response.status_code
-    }
-    return templates.TemplateResponse("contacts.html", payload)
-    
+# @router.post("/")
+# def test(request: Request, body: List[Contact]):
+#     # print("request", request)
+#     # print("body", body)
+#     payload = {
+#         "request": request,
+#         # "access_token": access_token,
+#         # "refresh_token": refresh_token,
+#         "contacts": body,
+#         # "stat_code": response.status_code
+#     }
+#     return templates.TemplateResponse("contacts.html", payload)
+
+@router.get("/create_contact")
+def create_contact(request: Request):
+    return templates.TemplateResponse("create_contact.html", {"request": request})
 
 @router.get("/")
 def get_contacts(request: Request, options: str = None, reload: bool = False):
+    return templates.TemplateResponse("contacts.html", {"request": request})
     # print("contacts")
     # print(f"{options=}")
     # print(f"{reload=}")
@@ -108,4 +112,3 @@ def get_contacts(request: Request, options: str = None, reload: bool = False):
     #         "stat_code": status_code
             # }
     # print(response.json())
-    return templates.TemplateResponse("contacts.html", {"request": request})
