@@ -1,4 +1,4 @@
-const card = (contacts) => {
+const cards = (contacts) => {
 
     const firstElement = document.getElementById("contactsCol")
 
@@ -14,6 +14,8 @@ const card = (contacts) => {
 
         document.getElementById("contactsRow").appendChild(clone)
     }
+
+    loading.hidden =true
 }
 
 
@@ -36,7 +38,7 @@ const getContacts = async (access_token, refresh_token) => {
         
         contacts = await response.json()
 
-        card(contacts)
+        cards(contacts)
     }
     else if (response.status === 401) {
         getNewTokens(refresh_token)
@@ -67,7 +69,7 @@ const getNewTokens = async (refresh_token) => {
         getContacts(access_token, refresh_token)
     }
     else {
-        window.location = "../auth/login"
+        window.location = "../auth/singin"
     }
 }
 

@@ -1,7 +1,5 @@
 const form = document.forms[0]
 
-// console.log(form)
-
 form.addEventListener('submit', async event => {
   event.preventDefault()
   const response = await fetch(
@@ -21,14 +19,12 @@ form.addEventListener('submit', async event => {
   console.log("response status", response.status, result)
 
   if (response.status === 200) {
-      console.log("login succesfull")
+    console.log("login succesfull")
 
-      // result = await response.json()
-
-      localStorage.setItem('access_token', result.access_token)
+    localStorage.setItem('access_token', result.access_token)
     localStorage.setItem('refresh_token', result.refresh_token)
     
-  window.location = '../contacts'
+    window.location = '../contacts'
   }
   else if (response.status === 401) {
     message.innerHTML = result.detail

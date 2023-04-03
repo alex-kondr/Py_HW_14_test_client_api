@@ -17,9 +17,14 @@ app_dir = Path(__file__).parent
 templates = Jinja2Templates(directory=app_dir / "templates")
 
 
-@router.get("/login")
+@router.get("/singin")
 def form(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("singin.html", {"request": request})
+
+
+@router.get("/singup")
+def form(request: Request):
+    return templates.TemplateResponse("singup.html", {"request": request})
 
 
 # @router.post("/login")
