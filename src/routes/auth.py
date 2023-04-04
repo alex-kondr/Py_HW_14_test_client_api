@@ -56,13 +56,6 @@ def form(request: Request):
     # file = File(a)
     # print(file)
     
-        # cloudinary.config(
-        #     cloud_name="diqkjtgls",
-        #     api_key="599953368668421",
-        #     api_secret="-mky9LCkJ6Agnw2Jde1RCNYaJIc",
-        #     secure=True
-        # )
-    
         # cloudinary.uploader.upload(file, public_id=f"ContactsApp/456", overwrite=True,
         #                             eager = [{"width": 250, "height": 250, "crop": "fill"}])
         # image_info = cloudinary.api.resource(f"ContactsApp/456")
