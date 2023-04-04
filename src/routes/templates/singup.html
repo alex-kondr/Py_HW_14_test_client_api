@@ -24,12 +24,12 @@
                 <input type="text" class="form-control" name="last_name">
             </div>
             <div>
-                <label>User name</label>
-                <input type="text" class="form-control" name="username">
+                <label>User name<label class="text-danger-emphasis">*</label></label>
+                <input type="text" class="form-control" name="username" required>
             </div>
             <div>
                 <label>Birthday</label>
-                <input type="date" class="form-control" name="birthday" placeholder="year-month-day (2023-01-01)">
+                <input type="date" class="form-control" name="birthday">
             </div>
             <div>
                 <label>Job</label>
@@ -43,7 +43,7 @@
                 <label>Phone</label>
                 <input type="text" class="form-control" name="phone" placeholder="+38(050)123-45-78">
             </div>
-            <div hidden="true">
+            <div>
                 <label>Avatar</label>
                 <input type="file" class="form-control" name="avatar">
             </div>

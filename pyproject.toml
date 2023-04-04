@@ -19,6 +19,8 @@ selenium = "^4.8.3"
 brython = "3.10"
 naked = "^0.1.32"
 pydantic = {extras = ["email"], version = "^1.10.7"}
+requests-toolbelt = "^0.10.1"
+cloudinary = "^1.32.0"
 
 
 [build-system]

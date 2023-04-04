@@ -1,12 +1,21 @@
 from pathlib import Path
 import requests
 import json
+from typing import Annotated
 
-from fastapi import APIRouter, Request, Form, Response
+from fastapi import APIRouter, Request, Form, Response, Depends, UploadFile, File
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 # from starlette.responses import RedirectResponse
 from starlette import status
+from requests_toolbelt.multipart import decoder
+import cloudinary
+import cloudinary.api
+import cloudinary.uploader
+from starlette.datastructures import FormData
+
+from src.schemas.contacts import ContactAll, Avatar
+
 
 # from src.services.storage import local_storage, Storage
 
@@ -25,6 +34,47 @@ def form(request: Request):
 @router.get("/singup")
 def form(request: Request):
     return templates.TemplateResponse("singup.html", {"request": request})
+
+
+# @router.post("/singup")
+# async def create_user(request: Request, body: ContactAll = Depends(ContactAll), avatar: Avatar = Depends(Avatar)):
+    # multipart_data = decoder.MultipartDecoder.from_response(response)
+    # forms = await request.form()
+    # async with request.form():
+    # async with request.form() as form:
+        # filename = form["upload_file"].filename
+        # contents = await form["upload_file"].read()
+        # file = form["avatar"].file
+    # class Form:
+    #     pass
+    
+    # for key, value in forms.items():
+    #     Form.key = value
+        
+    # print(forms._dict.pop())
+    # print(avatar)
+    # file = File(a)
+    # print(file)
+    
+        # cloudinary.config(
+        #     cloud_name="diqkjtgls",
+        #     api_key="599953368668421",
+        #     api_secret="-mky9LCkJ6Agnw2Jde1RCNYaJIc",
+        #     secure=True
+        # )
+    
+        # cloudinary.uploader.upload(file, public_id=f"ContactsApp/456", overwrite=True,
+        #                             eager = [{"width": 250, "height": 250, "crop": "fill"}])
+        # image_info = cloudinary.api.resource(f"ContactsApp/456")
+        # src_url = image_info["derived"][0]["secure_url"]
+        # print(src_url)
+    
+    
+    
+    # body = b""
+    # async for chunk in request.stream():
+    #     body += chunk
+    # print(body)
 
 
 # @router.post("/login")

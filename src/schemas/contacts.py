@@ -2,6 +2,7 @@ from typing import Optional, Union, List
 from datetime import date, datetime
 
 from pydantic import BaseModel, Field, EmailStr, constr
+from fastapi import File, UploadFile, Form
 
 
 class Token(BaseModel):
@@ -20,24 +21,29 @@ class Group(BaseModel):
 class Contact(BaseModel):
     first_name: str = Field(min_length=3, max_length=50)
     last_name: str = Field(min_length=3, max_length=50)
-    phone: Optional[
-        constr(
-            strip_whitespace=True,
-            regex=r"^(\+)[1-9][0-9\-\(\)]{9,16}$",
-        )
-    ]
-    email: Optional[EmailStr]
+    username: str
     birthday: Optional[date]
     job: Optional[str]
-    groups: List[int]
-    id: int
-    groups: List[Group]
-    avatar: Optional[str]
-    created_at: datetime
+    email: Optional[EmailStr]
+    phone: Optional[str]
+    #     constr(
+    #         strip_whitespace=True,
+    #         regex=r"^(\+)[1-9][0-9\-\(\)]{9,16}$",
+    #     )
+    # ]
+    # groups: List[Group]
+    avatar: UploadFile = File()
+    password: str
     
     class Config:
         orm_mode = True
 
-
-# class ContactAll(BaseModel):
-#     contacts
+# @as_form
+class Avatar(BaseModel):
+    avatar: UploadFile
+    
+class ContactAll(BaseModel):
+    username123: Optional[str]
+    
+    class Config:
+        orm_mode = True
