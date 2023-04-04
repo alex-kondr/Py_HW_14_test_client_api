@@ -6,13 +6,6 @@ from typing import Annotated
 from fastapi import APIRouter, Request, Form, Response, Depends, UploadFile, File
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
-# from starlette.responses import RedirectResponse
-from starlette import status
-from requests_toolbelt.multipart import decoder
-import cloudinary
-import cloudinary.api
-import cloudinary.uploader
-from starlette.datastructures import FormData
 
 from src.schemas.contacts import ContactAll, Avatar
 

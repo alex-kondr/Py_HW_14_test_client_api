@@ -63,8 +63,9 @@ templates = Jinja2Templates(directory=app_dir / "templates")
 def create_contact(request: Request):
     return templates.TemplateResponse("create_contact.html", {"request": request})
 
+
 @router.get("/")
-def get_contacts(request: Request, options: str = None, reload: bool = False):
+def get_contacts(request: Request):
     return templates.TemplateResponse("contacts.html", {"request": request})
     # print("contacts")
     # print(f"{options=}")
