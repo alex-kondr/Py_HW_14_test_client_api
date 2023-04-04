@@ -13,20 +13,12 @@ form.addEventListener('submit', async event => {
             {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                //     'Content-Type': 'multipart/for-data',
                     Authorization: `Bearer ${access_token}`
                 },
-                body: JSON.stringify({
-                    first_name: form.first_name.value,
-                    last_name: form.last_name.value,
-                    birthday: form.birthday.value ? form.birthday.value:null,
-                    job: form.job.value ? form.job.value:null,
-                    email: form.email.value ? form.email.value:null,
-                    phone: form.phone.value
-                })      
+                body: new FormData(form)
             }
     )
-
 
     result = await response.json()
     console.log("response status", response.status)
