@@ -4,29 +4,33 @@ form.addEventListener('submit', async event => {
     event.preventDefault()
 
     // console.log("form birthday: ", form.birthday.value)
+    form.username.value = "132"
+    // boda = new FormData(form)
 
-    boda = new FormData(form)
+    for (value of form) {
+        // console.log(value)
+    }
 
     // for (key of boda.keys()) {
     //     console.log("body: ", key)
     // }
-
+    // boda["username"] = "123"
     // for (key of boda.keys()) {
     //     if (!boda[key]) {
     //         boda.append("username", "Groucho")
     //     }        
     // }
 
-    for (key of boda.keys()) {
-        console.log("key: ", key)
-        console.log("value: ", boda[key])
-    }
+    // for (key of boda.keys()) {
+    //     console.log("key: ", key)
+    //     console.log("value: ", boda[key])
+    // }
 
     const response = await fetch(
         'http://localhost:8000/auth/singup',
             {
                 method: 'POST',
-                body: boda
+                body: new FormData(form)
             }
     )
 
