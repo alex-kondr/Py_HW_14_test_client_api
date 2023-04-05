@@ -5,32 +5,27 @@ form.addEventListener('submit', async event => {
 
     // console.log("form birthday: ", form.birthday.value)
 
-    
-    //     console.log("body: ", body)
+    // boda = new FormData(form)
+
+    // for (key of boda.keys()) {
+    //     console.log("body: ", key)
+    // }
+
+    // for (value of boda.values()) {
+    //     console.log("value: ", value)
+    // }
     const response = await fetch(
         'https://SilentDismalSweepsoftware.olieksandrkond3.repl.co/api/auth/singup',
             {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    first_name: form.first_name.value ? form.first_name.value:null,
-                    last_name: form.last_name.value ? form.last_name.value:null,
-                    username: form.username.value ? form.username.value:null,
-                    birthday: form.birthday.value ? form.birthday.value:null,
-                    job: form.job.value ? form.job.value:null,
-                    email: form.email.value,
-                    phone: form.phone.value ? form.phone.value:null,
-                    password: form.password.value
-                })      
+                body: new FormData(form)
             }
     )
 
 
     result = await response.json()
-    console.log("response status", response.status)
-    console.log("result: ", result.detail)
+    console.log("response status", response)
+    console.log("result: ", result.detail, result)
 
     if (response.status === 201) {
 

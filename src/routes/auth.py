@@ -3,7 +3,7 @@ import requests
 import json
 from typing import Annotated
 
-from fastapi import APIRouter, Request, Form, Response, Depends, UploadFile, File
+from fastapi import APIRouter, Request, Form, Response, Depends, UploadFile, File, Body
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 # from starlette.responses import RedirectResponse
@@ -36,10 +36,14 @@ def form(request: Request):
     return templates.TemplateResponse("singup.html", {"request": request})
 
 
-# @router.post("/singup")
-# async def create_user(request: Request, body: ContactAll = Depends(ContactAll), avatar: Avatar = Depends(Avatar)):
+@router.post("/singup")
+async def create_user(avatar: UploadFile = File(), body: ContactAll = Depends()):
     # multipart_data = decoder.MultipartDecoder.from_response(response)
-    # forms = await request.form()
+    print(f"{avatar=}")
+    print(f"{body=}")
+    # form = await request.form()
+    # print(f"{form=}")
+    # print(f)
     # async with request.form():
     # async with request.form() as form:
         # filename = form["upload_file"].filename

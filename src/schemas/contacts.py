@@ -2,7 +2,7 @@ from typing import Optional, Union, List
 from datetime import date, datetime
 
 from pydantic import BaseModel, Field, EmailStr, constr
-from fastapi import File, UploadFile, Form
+from fastapi import File, UploadFile, Form, Body
 
 
 class Token(BaseModel):
@@ -43,7 +43,4 @@ class Avatar(BaseModel):
     avatar: UploadFile
     
 class ContactAll(BaseModel):
-    username123: Optional[str]
-    
-    class Config:
-        orm_mode = True
+    username: Optional[str] = Form()

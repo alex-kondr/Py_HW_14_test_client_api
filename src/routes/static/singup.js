@@ -5,17 +5,17 @@ form.addEventListener('submit', async event => {
 
     // console.log("form birthday: ", form.birthday.value)
 
-    // boda = new FormData(form)
+    boda = new FormData(form)
 
     // for (key of boda.keys()) {
     //     console.log("body: ", key)
     // }
 
-    // for (value of boda.values()) {
-    //     console.log("value: ", value)
-    // }
+    for (value of boda.values()) {
+        console.log("value: ", value)
+    }
     const response = await fetch(
-        'https://SilentDismalSweepsoftware.olieksandrkond3.repl.co/api/auth/singup',
+        'http://localhost:8000/auth/singup',
             {
                 method: 'POST',
                 body: new FormData(form)
@@ -44,19 +44,19 @@ form.addEventListener('submit', async event => {
 
         // console.log("avatar: ", response_avatar)
 
-        form.hidden = true
-        detail.innerHTML = result.detail
-        buttons.hidden = false
+        // form.hidden = true
+        // detail.innerHTML = result.detail
+        // buttons.hidden = false
     }
-    else {
-        form.hidden = true
-        buttons.hidden = false
-        msg = ""
-        for (res of result.detail) {
-            msg = msg + res.loc[1] + "-error: " + res.msg + "\n"
-        }
-        detail.innerHTML = msg
-    }
+    // else {
+    //     form.hidden = true
+    //     buttons.hidden = false
+    //     msg = ""
+    //     for (res of result.detail) {
+    //         msg = msg + res.loc[1] + "-error: " + res.msg + "\n"
+    //     }
+    //     detail.innerHTML = msg
+    // }
 
 })
 
