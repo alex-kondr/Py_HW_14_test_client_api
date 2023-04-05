@@ -1,33 +1,18 @@
 const form = document.forms[0]
+const inputs = document.getElementsByTagName("input")
 
 form.addEventListener('submit', async event => {
     event.preventDefault()
 
-    // console.log("form birthday: ", form.birthday.value)
-    form.username.value = "132"
-    // boda = new FormData(form)
-
-    for (value of form) {
-        // console.log(value)
+    options = ""
+    for (input of inputs) {
+        if (!input.required && (input.type == "text" || input.type == "date") && input.value) {
+            options = `${options}&${input.name}=${input.value}`
+        }
     }
 
-    // for (key of boda.keys()) {
-    //     console.log("body: ", key)
-    // }
-    // boda["username"] = "123"
-    // for (key of boda.keys()) {
-    //     if (!boda[key]) {
-    //         boda.append("username", "Groucho")
-    //     }        
-    // }
-
-    // for (key of boda.keys()) {
-    //     console.log("key: ", key)
-    //     console.log("value: ", boda[key])
-    // }
-
     const response = await fetch(
-        'http://localhost:8000/auth/singup',
+        `https://SilentDismalSweepsoftware.olieksandrkond3.repl.co/api/auth/singup?${options}`,
             {
                 method: 'POST',
                 body: new FormData(form)
@@ -41,34 +26,19 @@ form.addEventListener('submit', async event => {
 
     if (response.status === 201) {
 
-        // const response_avatar = await fetch(
-        //     'https://SilentDismalSweepsoftware.olieksandrkond3.repl.co/api/users/avatar',
-        //         {
-        //             method: 'PATCH',
-        //             headers: {
-        //                 'Content-Type': 'multipart/for-data'
-        //             },
-        //             body: ({
-        //                 file: form.avatar.value
-        //             })      
-        //         }
-        // )
-
-        // console.log("avatar: ", response_avatar)
-
-        // form.hidden = true
-        // detail.innerHTML = result.detail
-        // buttons.hidden = false
+        form.hidden = true
+        detail.innerHTML = result.detail
+        buttons.hidden = false
     }
-    // else {
-    //     form.hidden = true
-    //     buttons.hidden = false
-    //     msg = ""
-    //     for (res of result.detail) {
-    //         msg = msg + res.loc[1] + "-error: " + res.msg + "\n"
-    //     }
-    //     detail.innerHTML = msg
-    // }
+    else {
+        form.hidden = true
+        buttons.hidden = false
+        msg = ""
+        for (res of result.detail) {
+            msg = msg + res.loc[1] + "-error: " + res.msg + "\n"
+        }
+        detail.innerHTML = msg + "\n" + result.detail
+    }
 
 })
 

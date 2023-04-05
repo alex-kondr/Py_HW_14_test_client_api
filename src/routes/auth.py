@@ -30,12 +30,24 @@ def form(request: Request):
 
 
 @router.post("/singup")
-async def create_user(request: Request, body: ContactAll = Depends(None)):
+async def create_user(request: Request, body: ContactAll = Depends()):
     # multipart_data = decoder.MultipartDecoder.from_response(response)
     # print(f"{avatar=}")
+    # a = ContactAll(**{"username": "123", "job": "789", "avatar": File()})
+    # copy_body = body.dict()
+    # for key, value in copy_body.items():
+    #     if value == " ":
+    #         copy_body[key] = None
+    
+    # print(copy_body)
+    # a = ContactAll(**copy_body)
     print(body)
-    form = await request.form()
-    print(f"{form=}")
+    # for key, value in body:
+        # if value == " ":
+        #     body[key] = None
+        # print(body.username)
+    # form = await request.form()
+    # print(f"{form=}")
     # print(f)
     # async with request.form():
     # async with request.form() as form:
