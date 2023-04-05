@@ -1,8 +1,9 @@
-from typing import Optional, Union, List
+from typing import Optional, Union, List, Annotated
 from datetime import date, datetime
 
 from pydantic import BaseModel, Field, EmailStr, constr
 from fastapi import File, UploadFile, Form, Body
+from pydantic.fields import Undefined
 
 
 class Token(BaseModel):
@@ -43,4 +44,6 @@ class Avatar(BaseModel):
     avatar: UploadFile
     
 class ContactAll(BaseModel):
-    username: Optional[str] = Form()
+    username: Annotated[str, Form()]
+    job: Annotated[str, Form()]
+    avatar: Annotated[UploadFile, File()]

@@ -11,14 +11,22 @@ form.addEventListener('submit', async event => {
     //     console.log("body: ", key)
     // }
 
-    for (value of boda.values()) {
-        console.log("value: ", value)
+    // for (key of boda.keys()) {
+    //     if (!boda[key]) {
+    //         boda.append("username", "Groucho")
+    //     }        
+    // }
+
+    for (key of boda.keys()) {
+        console.log("key: ", key)
+        console.log("value: ", boda[key])
     }
+
     const response = await fetch(
         'http://localhost:8000/auth/singup',
             {
                 method: 'POST',
-                body: new FormData(form)
+                body: boda
             }
     )
 
