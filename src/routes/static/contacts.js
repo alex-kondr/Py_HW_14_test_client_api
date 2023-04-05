@@ -3,19 +3,28 @@ const cards = (contacts) => {
     const firstElement = document.getElementById("contactsCol")
 
     for (contact of contacts) {
-        console.log(contact)
+        // console.log(contact)
         const clone = firstElement.cloneNode(true)
         clone.hidden = false
         
-        clone.querySelector('#name').innerHTML = `${contact.first_name ? (contact.first_name+" "):""}${contact.last_name ? contact.last_name:""}`
+        clone.querySelector('#name').innerHTML = `${contact.first_name} ${contact.last_name}`
         clone.querySelector('#avatar').src = contact.avatar
         clone.querySelector('#phone').innerHTML = `<b>Phone: </b>${contact.phone}`
         clone.querySelector('#email').innerHTML = `<b>Email: </b>${(contact.email ? contact.email : "")}` 
+        clone.querySelector('#delete').innerHTML = contact.first_name
 
         document.getElementById("contactsRow").appendChild(clone)
     }
 
-    loading.hidden =true
+    loading.hidden = true
+    
+    let btns = document.querySelectorAll('button');
+    console.log(btns)
+    btns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        console.log(btn.innerHTML)
+    });
+    });
 }
 
 
@@ -24,7 +33,7 @@ const getContacts = async (access_token, refresh_token) => {
     console.log("try get contacts")
 
     const response = await fetch(
-        'https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/',
+        'https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/?limit=100',
         {
             method: 'GET',
             headers: {
@@ -72,8 +81,11 @@ const getNewTokens = async (refresh_token) => {
         window.location = "../auth/singin"
     }
 }
+// alert("kyky")
 
 getContacts(
     localStorage.getItem("access_token"),
     localStorage.getItem("refresh_token"),
 )
+    
+
