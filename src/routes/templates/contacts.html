@@ -5,6 +5,7 @@
   <div id="buttons" class="grid">
       <a href="../contacts/create_contact" class="btn btn-primary">Add contact</a>
   </div>
+  <div class="alert alert-danger" role="alert" id="message" hidden="true"></div>
 
     <div class="col-sm-4 mb-3 mb-sm-0" id="loading">
     <div class="card" aria-hidden="true">
@@ -25,7 +26,7 @@
   </div>
   </div>
 
-    <div class="row" id="contactsRow">
+  <div class="row" id="contactsRow">
   <div class="col-sm-4 mb-3 mb-sm-0" id="contactsCol" hidden="true">
     <div class="card">
       <img src="" class="card-img-top" alt="" id="avatar">
@@ -33,7 +34,7 @@
         <h3 class="card-title" id="name"></h5>
         <p class="card-text" id="phone"></p>
         <p class="card-text" id="email"></p>
-        <button href="#" class="btn btn-primary">Edit</a>
+        <button id="edit" class="btn btn-primary">Edit</a>
         <button id="delete" class="btn btn-primary">Delete</a>
       </div>
     </div>

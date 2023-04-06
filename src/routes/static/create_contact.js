@@ -1,19 +1,28 @@
 const form = document.forms[0]
-access_token = localStorage.getItem("access_token")
+const inputs = document.getElementsByTagName("input")
+const access_token = localStorage.getItem("access_token")
 
 form.addEventListener('submit', async event => {
     event.preventDefault()
 
-    // console.log("form birthday: ", form.birthday.value)
+    query = ""
+    for (input of inputs) {
+        if ((!input.required || input.name == "phone") && (input.type == "text" || input.type == "date" || input.type == "email" || input.name == "phone") && input.value) {
+            if (input.name == "phone") {
+                query = `${query}&${input.name}=${"%2B" + input.value.slice(1)}`
+            }
+            else {
+                query = `${query}&${input.name}=${input.value}`
+            }
+        }
+    }
+    console.log("query: ", query)
 
-    
-    //     console.log("body: ", body)
     const response = await fetch(
-        'https://SilentDismalSweepsoftware.olieksandrkond3.repl.co/api/contacts/',
+        `https://SilentDismalSweepsoftware.olieksandrkond3.repl.co/api/contacts/?${query}`,
             {
                 method: 'POST',
                 headers: {
-                //     'Content-Type': 'multipart/for-data',
                     Authorization: `Bearer ${access_token}`
                 },
                 body: new FormData(form)
@@ -22,24 +31,9 @@ form.addEventListener('submit', async event => {
 
     result = await response.json()
     console.log("response status", response.status)
-    console.log("result: ", result.detail)
+    console.log("result: ", result)
 
     if (response.status === 201) {
-
-        // const response_avatar = await fetch(
-        //     'https://SilentDismalSweepsoftware.olieksandrkond3.repl.co/api/users/avatar',
-        //         {
-        //             method: 'PATCH',
-        //             headers: {
-        //                 'Content-Type': 'multipart/for-data'
-        //             },
-        //             body: ({
-        //                 file: form.avatar.value
-        //             })      
-        //         }
-        // )
-
-        // console.log("avatar: ", response_avatar)
 
         form.hidden = true
         detail.innerHTML = result.detail
@@ -52,9 +46,8 @@ form.addEventListener('submit', async event => {
         for (res of result.detail) {
             msg = msg + res.loc[1] + "-error: " + res.msg + "\n"
         }
-        detail.innerHTML = msg
+        detail.innerHTML = msg + "\n" + result.detail
     }
-
 })
 
 
