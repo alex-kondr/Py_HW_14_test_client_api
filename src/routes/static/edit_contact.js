@@ -1,18 +1,27 @@
 const form = document.forms[0]
 const inputs = document.getElementsByTagName("input")
 const access_token = localStorage.getItem("access_token")
-const contact_id = localStorage.getItem("contact_id")
+const contactId = localStorage.getItem("contactId")
 
-
-const response = await fetch(
+const getContact = async () => {
+    const response = await fetch(
         `https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/${contactId}`,
-            {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${access_token}`
-                }
+        {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${access_token}`
             }
-)
+        }
+    )
+
+    contact = await response.json()
+    form.first_name.value = contact.first_name
+    form.last_name.value = contact.last_name
+    form.birthday.value = contact.birthday
+    form.job.value = contact.job
+    form.email.value = contact.email
+    form.phone.value = contact.phone
+}
     
 
 form.addEventListener('submit', async event => {
@@ -32,9 +41,9 @@ form.addEventListener('submit', async event => {
     console.log("query: ", query)
 
     const response = await fetch(
-        `https://SilentDismalSweepsoftware.olieksandrkond3.repl.co/api/contacts/?${query}`,
+        `https://SilentDismalSweepsoftware.olieksandrkond3.repl.co/api/contacts/${contactId}/?${query}`,
             {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${access_token}`
                 },
@@ -62,5 +71,7 @@ form.addEventListener('submit', async event => {
         detail.innerHTML = msg + "\n" + result.detail
     }
 })
+
+getContact()
 
 

@@ -34,8 +34,8 @@ const cards = (contacts) => {
             }
             else if (btn.id == "edit") {
                 console.log("try edit")
-                localStorage.setItem("contact_id", btn.name)
-                window.location = "../edit_contact"
+                localStorage.setItem("contactId", btn.name)
+                window.location = "../contacts/edit_contact"
             }
     });
     });

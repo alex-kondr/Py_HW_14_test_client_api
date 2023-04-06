@@ -64,8 +64,9 @@ def create_contact(request: Request):
     return templates.TemplateResponse("create_contact.html", {"request": request})
 
 
-@router.post("/edit_contact/")
-def create_contact(request: Request):
+@router.get("/edit_contact")
+def edit_contact(request: Request):
+    # print("kuku")
     return templates.TemplateResponse("edit_contact.html", {"request": request})
 
 
