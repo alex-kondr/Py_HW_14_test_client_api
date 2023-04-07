@@ -3,7 +3,7 @@
 {% block body %}
 
   <div id="buttons" class="grid">
-      <a href="../contacts/create_contact" class="btn btn-primary">Add contact</a>
+      <a href="../contacts/create_contact" class="btn btn-primary">Add new contact</a>
   </div>
   <div class="alert alert-danger" role="alert" id="message" hidden="true"></div>
 
@@ -31,11 +31,17 @@
     <div class="card">
       <img src="" class="card-img-top" alt="" id="avatar">
       <div class="card-body">
+        <button id="editAvatar" class="btn btn-primary">Edit avatar</button>
+        <button id="deleteAvatar" class="btn btn-primary">Delete avatar</button>
+      </div>
+      <div class="card-body">
         <h3 class="card-title" id="name"></h5>
+        <p class="card-text" id="birthday"></p>
         <p class="card-text" id="phone"></p>
         <p class="card-text" id="email"></p>
-        <button id="edit" class="btn btn-primary">Edit</a>
-        <button id="delete" class="btn btn-primary">Delete</a>
+        <p class="card-text" id="job"></p>
+        <button id="edit" class="btn btn-primary">Edit</button>
+        <button id="delete" class="btn btn-primary">Delete</button>
       </div>
     </div>
   </div>

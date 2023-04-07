@@ -1,19 +1,21 @@
-const delay = ms => new Promise(res => setTimeout(res, ms));
-
+const delay = ms => new Promise(res => setTimeout(res, ms))
 
 const cards = (contacts) => {
 
     const firstElement = document.getElementById("contactsCol")
 
     for (contact of contacts) {
-        // console.log(contact)
         const clone = firstElement.cloneNode(true)
         clone.hidden = false
         
+        clone.querySelector('#deleteAvatar').name = contact.id
+        clone.querySelector('#editAvatar').name = contact.id
         clone.querySelector('#name').innerHTML = `${contact.first_name} ${contact.last_name}`
+        clone.querySelector('#birthday').innerHTML = `${contact.birthday? contact.birthday:""}`
         clone.querySelector('#avatar').src = contact.avatar
         clone.querySelector('#phone').innerHTML = `<b>Phone: </b>${contact.phone}`
         clone.querySelector('#email').innerHTML = `<b>Email: </b>${(contact.email ? contact.email : "")}` 
+        clone.querySelector('#job').innerHTML = `<b>Job: </b>${(contact.job ? contact.job : "")}` 
         clone.querySelector('#delete').name = contact.id
         clone.querySelector('#edit').name = contact.id
 
@@ -22,8 +24,7 @@ const cards = (contacts) => {
 
     loading.hidden = true
     
-    let btns = document.querySelectorAll('button');
-    // console.log(btns)
+    let btns = document.querySelectorAll('button')
     btns.forEach((btn) => {
         btn.addEventListener('click', () => {            
             console.log(btn.name)
@@ -36,6 +37,15 @@ const cards = (contacts) => {
                 console.log("try edit")
                 localStorage.setItem("contactId", btn.name)
                 window.location = "../contacts/edit_contact"
+            }
+            else if (btn.id == "deleteAvatar") {
+                console.log("try delete avatar")
+                deleteAvatar(btn.name)
+            }
+            else if (btn.id == "editAvatar") {
+                console.log("try edit avatar")
+                localStorage.setItem("contactId", btn.name)
+                window.location = "../contacts/edit_avatar"
             }
     });
     });
@@ -127,49 +137,73 @@ const deleteContact = async (contactId) => {
         console.log(result)
         window.location = "../contacts"
     }
-    // else {
-    //     window.location = "../auth/singin"
-    // }
 }
 
 
-const editContact = async (contactId) => {
-
+const deleteAvatar = async (contactId) => {
     const response = await fetch(
-        `https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/${contactId}`,
-            {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("access_token")}`
-                }
+        `https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/avatar/${contactId}`,
+        {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`
             }
+        }
     )
-
-    // const response1 = await fetch(
-    //     `http://localhost:8000/contacts/edit_contact`,
-    //         {
-    //             method: 'POST',
-    //             body: JSON.stringify(contact)
-    //         }
-    // )
     
     if (response.status === 202) {
-        console.log("Get contact succesfull")
+        console.log("Delete avatar succesfull")
 
         console.log(response)
         result = await response.json()
         console.log(result)
-        // window.location = "../contacts"
+        window.location = "../contacts"
     }
-    // else {
-    //     window.location = "../auth/singin"
-    // }
 }
 
 
-getContacts()
-//     localStorage.getItem("access_token"),
-//     localStorage.getItem("refresh_token"),
-// )
+const updateAvatar = async (contactId) => {
+    const response = await fetch(
+        `https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/avatar/${contactId}`,
+        {
+            method: 'PATCH',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`
+            }
+        }
+    )
     
+    if (response.status === 202) {
+        console.log("Delete avatar succesfull")
 
+        console.log(response)
+        result = await response.json()
+        console.log(result)
+        window.location = "../contacts"
+    }
+}
+
+
+// const editContact = async (contactId) => {
+
+//     const response = await fetch(
+//         `https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/${contactId}`,
+//             {
+//                 method: 'GET',
+//                 headers: {
+//                     Authorization: `Bearer ${localStorage.getItem("access_token")}`
+//                 }
+//             }
+//     )
+    
+//     if (response.status === 202) {
+//         console.log("Get contact succesfull")
+
+//         console.log(response)
+//         result = await response.json()
+//         console.log(result)
+//     }
+// }
+
+
+getContacts()
