@@ -22,8 +22,7 @@ form.addEventListener('submit', async event => {
     console.log("login succesfull")
 
     localStorage.setItem('access_token', result.access_token)
-    localStorage.setItem('refresh_token', result.refresh_token)
-    
+    localStorage.setItem('refresh_token', result.refresh_token)    
     window.location = '../contacts'
   }
   else if (response.status === 401) {

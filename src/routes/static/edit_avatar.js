@@ -1,5 +1,4 @@
 const form = document.forms[0]
-// const inputs = document.getElementsByTagName("input")
 const access_token = localStorage.getItem("access_token")
 const contactId = localStorage.getItem("contactId")
 

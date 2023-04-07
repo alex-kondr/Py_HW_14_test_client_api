@@ -162,48 +162,4 @@ const deleteAvatar = async (contactId) => {
 }
 
 
-const updateAvatar = async (contactId) => {
-    const response = await fetch(
-        `https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/avatar/${contactId}`,
-        {
-            method: 'PATCH',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("access_token")}`
-            }
-        }
-    )
-    
-    if (response.status === 202) {
-        console.log("Delete avatar succesfull")
-
-        console.log(response)
-        result = await response.json()
-        console.log(result)
-        window.location = "../contacts"
-    }
-}
-
-
-// const editContact = async (contactId) => {
-
-//     const response = await fetch(
-//         `https://silentdismalsweepsoftware.olieksandrkond3.repl.co/api/contacts/${contactId}`,
-//             {
-//                 method: 'GET',
-//                 headers: {
-//                     Authorization: `Bearer ${localStorage.getItem("access_token")}`
-//                 }
-//             }
-//     )
-    
-//     if (response.status === 202) {
-//         console.log("Get contact succesfull")
-
-//         console.log(response)
-//         result = await response.json()
-//         console.log(result)
-//     }
-// }
-
-
 getContacts()
